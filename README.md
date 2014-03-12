@@ -394,7 +394,7 @@ That should be pretty straight forward. Now all we have to do is modify our `Boo
 Now try writing a get request for more Books as follows.
 
 	BookAppCtrls.controller("BooksCtrl", ["$scope", "$http", 
-		function($scope){
+		($scope)->
 			 ... 
 			 
 			// requesting more Books
@@ -402,8 +402,8 @@ Now try writing a get request for more Books as follows.
 				success((newBooks)->
 					console.log(data);
 					$scope.newBooks = $scope.fakeBooks.concat(data);
-			});		
-	}]);
+			);		
+	]);
 
 If we try to do an `$http.post` request we might get a [422](http://www.flickr.com/photos/girliemac/6514473085/in/set-72157628409467125) an unprocessible entity respone from server. This is most likely due to not including a `CSRF` token or authenticity token. Let's create a `Book` model in our database, before we get any further with making `post` requests.
 
@@ -444,9 +444,9 @@ Now we can try our first attempt at making a simple `$http` post request with an
 				 data: {book:
 					 		{name: $scope.newBook},
 	 				 		"authenticity_token": $('meta[name=csrf-token]').attr('content')} 						 
-		}).success(function(data){
+		}).success(data)->
 			console.log(data); 
-		});
+		);
 	};
  	
  	
@@ -466,9 +466,9 @@ As of yet our post request is sending an authenticity token in the data of the p
 				 headers: {
 				 	'X-CSRF-Token': $('meta[name=csrf-token]').attr('content') 
 				 }
-		}).success(function(data){
+		}).success((data)->
 			console.log(data); 
-		});
+		);
 	};
 
 A less redundent way of adding the `X-CSRF-token` to each request is just to setup the `$httpProvider` to have this parameter set in the header by default.
@@ -476,10 +476,9 @@ A less redundent way of adding the `X-CSRF-token` to each request is just to set
 `/assets/javascripts/book.js.coffee`
 
 	...
-	BookApp.config(["$httpProvider",
-		function($httpProvider) {
+	BookApp.config(["$httpProvider",($httpProvider)->
 		 $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
-	}]);
+	]);
 
 ### Setting up a service
 
@@ -537,6 +536,8 @@ In books controller you might instead say
 	)
 
 which should log an array of books `[object,object,...]`
+
+### A Book Service
 
 
 
