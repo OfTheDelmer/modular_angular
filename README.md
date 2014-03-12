@@ -366,8 +366,9 @@ Let's try making a request for more Books to our server. In order to make a requ
 	
 		def index
 			# Add some fake Books
+			if params[:format] == "json"
 			fake_books = [{title: "blah"},{title: "pretty blah"}]
-			
+			end
 			# respond to the type of request
 			respond_to do |f|
 				f.html 	{render :layout => false }
@@ -420,6 +421,7 @@ Now setup a `create` method in our `BooksController`
 		...
 		
 		def create
+		
 			new_book = params.require(:book).permit(:name, :description)
 			book = Book.create(new_book)
 			
