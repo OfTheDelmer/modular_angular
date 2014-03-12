@@ -2,11 +2,6 @@
 ## More Modular Components
 
 
-
-# Angular
-## More Modular Components
-
-
 |Objective|
 |	:---	|
 | To identify the basic compenents of a Angular application and integrate them together in a manner that creates a canonical example for one to further develop or rexamine afterward.|
@@ -437,7 +432,7 @@ Now we can try our first attempt at making a simple `$http` post request with an
 	
 	...
 	$scope.newBook = {title: "blah"}
-	$scope.saveBook = function(){
+	$scope.saveBook = ()->
 	
 	 	$http({method: "post",
 				 url: "/books", 
@@ -447,7 +442,7 @@ Now we can try our first attempt at making a simple `$http` post request with an
 		}).success(data)->
 			console.log(data); 
 		);
-	};
+	
  	
  	
 ### Configuring $httpProvider
@@ -457,7 +452,7 @@ As of yet our post request is sending an authenticity token in the data of the p
 
 `/assets/javascripts/books/books_controller.js.coffee`
 	
-	$scope.saveBook = function(){
+	$scope.saveBook = ()->
 	 	
 	 	$http({method: "post",
 				 url: "/Books", 
@@ -469,7 +464,7 @@ As of yet our post request is sending an authenticity token in the data of the p
 		}).success((data)->
 			console.log(data); 
 		);
-	};
+	
 
 A less redundent way of adding the `X-CSRF-token` to each request is just to setup the `$httpProvider` to have this parameter set in the header by default.
 
