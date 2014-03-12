@@ -2,6 +2,11 @@
 ## More Modular Components
 
 
+
+# Angular
+## More Modular Components
+
+
 |Objective|
 |	:---	|
 | To identify the basic compenents of a Angular application and integrate them together in a manner that creates a canonical example for one to further develop or rexamine afterward.|
@@ -395,8 +400,8 @@ Now try writing a get request for more Books as follows.
 			// requesting more Books
 			$http.get("/books.json").
 				success((newBooks)->
-					console.log(data);
-					$scope.newBooks = $scope.fakeBooks.concat(data);
+					console.log(newBooks);
+					$scope.newBooks = $scope.fakeBooks.concat(newBooks);
 			);		
 	]);
 
@@ -439,8 +444,8 @@ Now we can try our first attempt at making a simple `$http` post request with an
 				 data: {book:
 					 		{name: $scope.newBook},
 	 				 		"authenticity_token": $('meta[name=csrf-token]').attr('content')} 						 
-		}).success(data)->
-			console.log(data); 
+		}).success((data)->
+			console.log(data)
 		);
 	
  	
